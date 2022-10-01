@@ -32,14 +32,24 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = signInAuthWithEmailAndPassword(email, password);
+      const response = await signInAuthWithEmailAndPassword({
+        email,
+        password,
+      });
       console.log(response);
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create user, email already in use");
+      switch (error.code) {
+        case "auth/user-not-found":
+          alert("no user associated with this email");
+          break;
+        case "auth/wrong-password":
+          alert("incorrect password for email");
+          break;
+        default:
+          console.log(error);
+          return;
       }
-      console.error(error);
     }
   };
 
@@ -73,7 +83,7 @@ const SignInForm = () => {
 
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button buttonType="google" type="button" onClick={signInWithGoogle}>
             Google sign In
           </Button>
         </div>
