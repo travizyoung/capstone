@@ -19,19 +19,15 @@ const changeCartItem = (cartItems, cartItem, operator) => {
     case 1:
       return addCartItem(cartItems, cartItem);
     case -1:
-      const findedItem = cartItems.find((item) => item.id === cartItem.id);
-      if (findedItem) {
-        if (findedItem.quantity > 1) {
-          return cartItems.map((item) =>
-            item.id === cartItem.id
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          );
-        } else {
-          return changeCartItem(cartItems, cartItem, 0);
-        }
+      if (cartItem.quantity > 1) {
+        return cartItems.map((item) =>
+          item.id === cartItem.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      } else {
+        return changeCartItem(cartItems, cartItem, 0);
       }
-      break;
     case 0:
       return cartItems.filter((item) => item.id !== cartItem.id);
     default:
@@ -50,7 +46,7 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState({});
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const [total, setTotal] = useState(0);
