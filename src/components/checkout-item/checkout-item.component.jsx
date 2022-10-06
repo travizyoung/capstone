@@ -5,16 +5,17 @@ import { CheckoutItemContainer, ImageContainer } from "./checkout-item.styles";
 
 function CheckoutItem({ cartItem }) {
   const { name, imageUrl, quantity, price } = cartItem;
-  const { handleCartItemChange } = useContext(CartContext);
+  const { addItemToCart, subItemFromCart, removeItemFromCart } =
+    useContext(CartContext);
 
-  const handleCartItemDecrease = () => {
-    handleCartItemChange(cartItem, -1);
+  const handleCartItemAdd = () => {
+    addItemToCart(cartItem);
   };
-  const handleCartItemIncrease = () => {
-    handleCartItemChange(cartItem, 1);
+  const handleCartItemSub = () => {
+    subItemFromCart(cartItem);
   };
   const handleCartItemRemove = () => {
-    handleCartItemChange(cartItem, 0);
+    removeItemFromCart(cartItem);
   };
 
   return (
@@ -24,11 +25,11 @@ function CheckoutItem({ cartItem }) {
       </ImageContainer>
       <div className="name">{name}</div>
       <div className="quantity">
-        <div className="arrow" onClick={handleCartItemDecrease}>
+        <div className="arrow" onClick={handleCartItemSub}>
           &#10094;
         </div>
         <div className="value">{quantity}</div>
-        <div className="arrow" onClick={handleCartItemIncrease}>
+        <div className="arrow" onClick={handleCartItemAdd}>
           &#10095;
         </div>
       </div>
