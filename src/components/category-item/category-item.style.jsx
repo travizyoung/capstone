@@ -38,7 +38,7 @@ export const Background = styled.div`
   height: 100%;
   background-size: cover;
   background-position: center;
-  /* background-image: ${(props) => `url(${props.imageUrl})`}; */
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const Body = styled.div`

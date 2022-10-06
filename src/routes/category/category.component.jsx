@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Fragment } from "react";
 
 import { CategoriesContext } from "../../contexts/categories.context";
 
@@ -18,11 +18,14 @@ function Category() {
   }, [category, categoriesMap]);
 
   return (
-    <div className="category-container">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
+    <Fragment>
+      <h2>{category}</h2>
+      <div className="category-container">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </Fragment>
   );
 }
 
