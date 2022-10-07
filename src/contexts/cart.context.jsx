@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import createAction from "../utils/reducer/reducer.util";
+import { createAction } from "../utils/reducer/reducer.util";
 
 const addCartItem = (cartItems, productToAdd) => {
   const findResult = cartItems.find((item) => item.id === productToAdd.id);
