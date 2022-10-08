@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { selectCategories } from "../../store/category/category.selector";
+import { selectCategoriesMap } from "../../store/category/category.selector";
 
 import CategoryPreview from "../../components/category-preview/category-preview.component";
 
 const CategoriesPreview = () => {
-  const categoriesMap = useSelector(selectCategories);
+  const categoriesMap = useSelector(selectCategoriesMap);
 
   return (
     <div className="shop-container">

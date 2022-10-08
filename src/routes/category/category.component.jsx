@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect, Fragment } from "react";
 
-import { selectCategories } from "../../store/category/category.selector";
+import { selectCategoriesMap } from "../../store/category/category.selector";
 
 import ProductCard from "../../components/product-card/product-card.component";
 
@@ -10,7 +10,7 @@ import "./category.styles.scss";
 
 function Category() {
   const { category } = useParams();
-  const categoriesMap = useSelector(selectCategories);
+  const categoriesMap = useSelector(selectCategoriesMap);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
