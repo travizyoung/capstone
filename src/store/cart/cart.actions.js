@@ -2,7 +2,6 @@ import { CART_ACTION_TYPES } from "./cart.types";
 import { createAction } from "../../utils/reducer/reducer.util";
 
 const addCartItem = (cartItems, productToAdd) => {
-  console.log(cartItems);
   const findResult = cartItems.find((item) => item.id === productToAdd.id);
 
   if (findResult) {
