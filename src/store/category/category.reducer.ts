@@ -1,5 +1,7 @@
 import { CATEGORIES_ACTION_TYPES } from "./category.types";
 
+import { CategoryAction } from "./category.actions";
+
 export const CATEGORY_INITIAL_STATE = {
   categories: [],
   isLoading: false,
@@ -8,7 +10,7 @@ export const CATEGORY_INITIAL_STATE = {
 
 export const categoriesReducer = (
   state = CATEGORY_INITIAL_STATE,
-  action = {}
+  action = {} as CategoryAction
 ) => {
   const { type, payload } = action;
 
