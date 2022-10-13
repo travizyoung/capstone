@@ -8,6 +8,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -18,6 +20,7 @@ import {
   writeBatch,
   query,
   getDocs,
+  DocumentData,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -30,6 +33,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const firebaseApp = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
@@ -44,10 +48,14 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
+type ObjectToAdd = {
+  title: string;
+};
+
 export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+  collectionKey: string,
+  objectsToAdd: ObjectToAdd[]
+): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -68,10 +76,14 @@ export const getCategoriesAndDocuments = async () => {
   return querySnapshot.docs.map((doc) => doc.data());
 };
 
+type AdditionalInformation = {
+  displayName?: string;
+};
+
 export const createUserDocumentFromAuth = async (
-  userAuth,
-  additionalInformation = {}
-) => {
+  userAuth: User,
+  additionalInformation: AdditionalInformation = {}
+): Promise<DocumentData | undefined> => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -90,20 +102,26 @@ export const createUserDocumentFromAuth = async (
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("error creating the user", error.message);
+      console.log("error creating the user", error);
     }
   }
 
   return userSnapshot;
 };
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthWithEmailAndPassword = async (email, password) => {
+export const signInAuthWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
@@ -113,7 +131,7 @@ export const signOutAuth = async () => {
   return await signOut(auth);
 };
 
-export const onAuthStateChangedListener = (callback) =>
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback);
 
 export const getCurrentUser = () => {
