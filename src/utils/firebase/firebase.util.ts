@@ -90,11 +90,11 @@ export const getCategoriesAndDocuments = async (): Promise<CategoryData[]> => {
   return querySnapshot.docs.map((doc) => doc.data() as CategoryData);
 };
 
-type AdditionalInformation = {
+export type AdditionalInformation = {
   displayName?: string;
 };
 
-type UserData = {
+export type UserData = {
   createdAt: Date;
   displayName: string;
   email: string;
