@@ -11,6 +11,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 import Spinner from "../../components/spinner/spinner.component";
 
 import "./category.styles.scss";
+import { CategoryItem } from "../../store/category/category.types";
 
 type CategoryRouteParams = {
   category: string;
@@ -22,10 +23,11 @@ function Category() {
   >() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  const [products, setProducts] = useState(categoriesMap[category]);
+  const [products, setProducts] = useState<CategoryItem[]>([]);
 
   useEffect(() => {
-    setProducts(categoriesMap[category]);
+    const products = categoriesMap[category] || [];
+    setProducts(products);
   }, [category, categoriesMap]);
 
   return (
