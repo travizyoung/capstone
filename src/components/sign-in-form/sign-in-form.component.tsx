@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
-import { AuthError, AuthErrorCodes } from "@firebase/auth";
+import { AuthError } from "@firebase/auth";
 import {
   emailSignInStart,
   googleSignInStart,
